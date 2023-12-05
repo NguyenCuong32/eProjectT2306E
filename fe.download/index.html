@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download File</title>
+    
+</head>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<body>
+    <button onclick="OnDownload()">Download</button>
+    
+    <script>
+        function OnDownload(){
+        console.log("Download clicked");
+        // window.location = "http://127.0.0.1:8000/download/1";
+        // window.location.href = "127.0.0.1:8000/download/1";
+        // $.ajax({
+        //     type: "GET",
+        //     url: "http://127.0.0.1:8000/download/1",
+        //     dataType: "blod",
+        //     success: function (response) {
+        //         console.log(response);
+        //     },
+        //    error:function(error){
+        //     console.log(error)
+        //    }
+        // });
+        // console.log("end");
+        //  }
+        $.ajax({
+            type: 'GET',
+            url: "http://127.0.0.1:8000/download/1",
+            success: function(response) {
+                // Create a Blob from the response data
+                var blob = new Blob([response], { type: 'application/octet-stream' });
+
+                // Create a link element to trigger the download
+                var link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = 'download.doc';
+
+                // Append the link to the document and trigger the click event
+                document.body.appendChild(link);
+                link.click();
+
+                // Remove the link from the document
+                document.body.removeChild(link);
+            },
+            error: function() {
+                // Handle the error
+                console.log('Failed to download the file.');
+            }
+        });
+        }
+
+    </script>
+</body>
+
+<body>
+    
+</body>
+
+</html>
